@@ -1,0 +1,28 @@
+.navbar{
+    display: flex;
+    color: rebeccapurple;
+    background-color: rgb(4, 5, 4);
+    padding: 5px 10px;
+}
+.home_button{
+    font-size: calc(10px + 2vmin);
+    color: whitesmoke;
+    background-color: rgb(19, 19, 19);
+    border-radius: 10px;
+    margin-right: 10px;
+    transition: 80ms;
+}
+.home_button:hover{
+    color: tomato;
+}
+.navbar_button{
+    margin: 0px 10px;
+    font-size: calc(3px + 2vmin);
+    color: whitesmoke;
+    background-color: rgb(19, 19, 19);
+    border-radius: 10px;
+    border: none;
+}
+.navbar_button:hover{
+    color: tomato;
+}
