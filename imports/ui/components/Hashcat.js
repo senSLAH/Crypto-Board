@@ -5,6 +5,9 @@ const Hashcat = (data) => {
     let content = data.children;
 
     function openOption(option){
+        Meteor.call('runCode', "cd /Users/illiaaldabaiev/hashcat && ./example500.sh",function (err, response) {
+            console.log(response);
+          });
         // const blocks = document.querySelectorAll(`.${classes.options_block}`);
         // blocks.forEach(block => {
         //     console.log(block)
@@ -20,7 +23,7 @@ const Hashcat = (data) => {
             if(b_data.id == data.children){
                 b_data.classList.remove("none");
                 b_data.classList.add("show_option");
-
+                
             }
         })
 
