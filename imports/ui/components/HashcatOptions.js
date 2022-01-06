@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
+import CommandGenerator from '../CommandGenerator';
 
 const HashcatOptions = (data) => {
 
+    const [generatorVisibility, setGeneratorVisibility] = useState(false)
+
+    function showGenerator(){
+        if(generatorVisibility){
+            setGeneratorVisibility(false);
+        }else{
+            setGeneratorVisibility(true);
+        }
+    }
 
 
     return (
@@ -16,11 +26,11 @@ const HashcatOptions = (data) => {
                 <a>hashcat</a>
 
             <ul className="listOfOptions">
-
-                <li>MD5</li>
+                <li onClick={showGenerator}>MD5</li>
                 <li>WPA/WPA2</li>
-
             </ul>
+
+            <CommandGenerator show={generatorVisibility}/>
         </>
     );
 }

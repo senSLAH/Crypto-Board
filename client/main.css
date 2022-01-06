@@ -84,6 +84,7 @@ code {
 }
 .options_block:hover{
   background-color: rgb(59, 59, 59);
+  cursor: pointer;
 }
 
 .selected{
@@ -114,4 +115,29 @@ code {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+  transition: 80ms;
+  cursor: pointer;
+}
+
+.listOfOptions li{
+  width: 100%;
+  transition: 500ms;
+  
+}
+
+.listOfOptions li:hover{
+  background-color: rgb(40, 46, 56);
+}
+
+.commandGenerator{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgb(22, 27, 34);
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
 }

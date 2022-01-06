@@ -37,7 +37,7 @@ const Hashcat = (data) => {
                 <div>Hashat is a particularly fast, efficient, and versatile hacking tool that assists brute-force attacks by conducting them with hash values of passwords that the tool is guessing or applying. When used for benign purposes, such as in penetration testing one’s own infrastructure, it can reveal compromised or easy to guess credentials.</div>    
             </div>
             <div className="none" id={data.children}>
-                <HashcatOptions></HashcatOptions>
+                <HashcatOptions/>
             </div>
         </>
     );

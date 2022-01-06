@@ -10,7 +10,7 @@ class OptionsBox extends Component {
         return (
             <div className="options_container">
                 <Hashcat className="options_block">
-                    <div>Hashcat {'\n'}</div>
+                    <div>Hashcat</div>
                     
                     
                 </Hashcat>
