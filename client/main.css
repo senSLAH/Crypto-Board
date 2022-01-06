@@ -19,7 +19,7 @@ code {
 }
 
 .App-header {
-  background-color: rgb(19, 19, 19);
+  background-color: rgb(13,17,23);
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
 }
@@ -35,13 +35,13 @@ code {
 .navbar{
   display: flex;
   color: rebeccapurple;
-  background-color: rgb(4, 5, 4);
+  background-color: rgb(22, 27, 34);
   padding: 5px 10px;
 }
 .home_button{
   font-size: calc(10px + 2vmin);
   color: whitesmoke;
-  background-color: rgb(19, 19, 19);
+  background-color: rgb(13,17,23);
   border-radius: 10px;
   margin-right: 10px;
   transition: 80ms;
@@ -69,13 +69,15 @@ code {
   justify-content: center;
 }
 .options_block{
-  width: calc(300px + 2vmin);
-  height: calc(250px + 2vmin);
+  width: calc(600px + 2vmin);
+  height: calc(500px + 2vmin);
   
   display: flex;
-  background-color: rgb(36, 36, 36);
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(22, 27, 34);
   color: snow;
-  border: 2px solid snow;
+  border: 1px solid gray;
   justify-content: center;
   align-items: center;
   transition: 400ms;
@@ -103,5 +105,13 @@ code {
   position: absolute;
   width: 90%;
   height: 800px;
-  background-color: grey;
+  background-color: rgb(13,17,23);
+  border-radius: 20px;
+  border: 1px solid grey
+}
+
+.listOfOptions{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
