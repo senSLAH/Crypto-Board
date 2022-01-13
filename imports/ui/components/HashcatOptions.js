@@ -5,11 +5,14 @@ const HashcatOptions = (data) => {
 
     const [generatorVisibility, setGeneratorVisibility] = useState(false)
 
-    function showGenerator(){
+    function showGenerator(choice){
         if(generatorVisibility){
             setGeneratorVisibility(false);
+            localStorage.setItem("option", null)
         }else{
             setGeneratorVisibility(true);
+            localStorage.setItem("option", choice)
+
         }
     }
 
@@ -26,8 +29,8 @@ const HashcatOptions = (data) => {
                 <a>hashcat</a>
 
             <ul className="listOfOptions">
-                <li onClick={showGenerator}>MD5</li>
-                <li>WPA/WPA2</li>
+                <li onClick={() => showGenerator("md5")}>MD5</li>
+                <li onClick={() => showGenerator("wpa/wpa2")}>WPA/WPA2</li>
             </ul>
 
             <CommandGenerator show={generatorVisibility}/>
