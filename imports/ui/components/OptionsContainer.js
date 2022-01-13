@@ -5,14 +5,13 @@ import JohnTheRipper from './JohnTheRipper';
 
 class OptionsBox extends Component {
 
+    
 
     render() {
         return (
             <div className="options_container">
                 <Hashcat className="options_block">
-                    <div>Hashcat</div>
-                    
-                    
+                    <div>Hashcat</div>       
                 </Hashcat>
                 <JohnTheRipper className="options_block">JohnTheRipper</JohnTheRipper>
             </div>

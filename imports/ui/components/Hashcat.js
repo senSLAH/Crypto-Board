@@ -24,10 +24,8 @@ const Hashcat = (data) => {
             if(b_data.id == data.children){
                 b_data.classList.remove("none");
                 b_data.classList.add("show_option");
-                
             }
         })
-
     }
     return(
         <>
