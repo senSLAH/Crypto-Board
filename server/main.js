@@ -20,12 +20,19 @@ Meteor.startup(() => {
       // to queue other method calls (see Meteor docs)
       this.unblock();
       var future=new Future();
-      exec(command,function(error,stdout,stderr){
-        if(error){
-          console.log(error);
-          throw new Meteor.Error(500,command+" failed");
-        }
-        future.return(stdout.toString());
+      console.log(command[1])
+      exec("cd /Users/illiaaldabaiev/hashcat && cat hashcat.potfile",function(error,stdout,stderr){
+          let result = new RegExp("^.*" + command[1] + ".*$", 'm');
+          console.log("hej")
+          console.log(stdout.match(result)[0].split(':')[1]);
+          console.log("hej")
+        
+        // console.log(stdout)
+      //   if(error){
+      //     console.log(error);
+      //     throw new Meteor.Error(500,command+" failed");
+      //   }
+      //   future.return(stdout.toString());
       });
       return future.wait();
     }

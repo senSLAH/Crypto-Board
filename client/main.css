@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #282c34;
+  /* background-color: #282c34; */
 
 }
 
@@ -11,6 +11,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(13,17,23);
 }
 
 code {
@@ -20,7 +21,6 @@ code {
 
 .App-header {
   background-color: rgb(13,17,23);
-  min-height: 100vh;
   font-size: calc(10px + 2vmin);
 }
 
@@ -35,7 +35,7 @@ code {
 .navbar{
   display: flex;
   color: rebeccapurple;
-  background-color: rgb(22, 27, 34);
+  background-color: rgb(5, 31, 48);
   padding: 5px 10px;
 }
 .home_button{
@@ -63,7 +63,7 @@ code {
 .generator_button{
   width: 150px;
   height: 30px;
-  font-size: 0.7em;
+  font-size: 0.6em;
   background-color: rgba(172, 255, 47, 0);
   color: whitesmoke;
   border-radius: 10px;
@@ -71,14 +71,14 @@ code {
 }
 .generator_button:hover{
   color: snow;
-  background-color: rgb(42, 3, 182);
+  background-color: rgb(7, 51, 80);
 }
 .generator_button_selected{
   width: 150px;
   height: 30px;
-  font-size: 0.7em;
+  font-size: 0.6em;
   color: snow;
-  background-color: rgb(42, 3, 182);
+  background-color: rgb(7, 51, 80);
   border-radius: 10px;
   border: 1px solid grey
 }
@@ -125,12 +125,13 @@ code {
   display: none;
 }
 .show_option{
-  position: absolute;
+  
   width: 90%;
-  height: 100%;
-  background-color: rgb(13,17,23);
+  height: auto;
   border-radius: 20px;
-  border: 1px solid grey
+  border: 1px solid grey;
+  background-color: rgb(22, 27, 34);
+  margin-bottom: 40px;
 }
 
 .listOfOptions{
@@ -152,15 +153,16 @@ code {
 
 .listOfOptions li:hover{
   background-color: rgb(40, 46, 56);
+  border-radius: 20px;
 }
-
+.listOfOptions{
+  border-top: 1px solid gray;
+  
+}
 .commandGenerator{
-  position: absolute;
-  top: 0px;
-  left: 0px;
   background-color: rgb(22, 27, 34);
   width: 100%;
-  height: 100vh;
+  height: auto;
   border-radius: 20px;
 }
 .generator_skeleton{
@@ -168,8 +170,31 @@ code {
   flex-direction: column;
 }
 .generator{
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 100px;
+  height: 120px;
+  border-bottom: 1px solid grey;
+  justify-content: center;
+  
+}
+.generator_tag{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid grey;
+  background-color: rgb(5, 31, 48);
+  border-radius: 20px;
+  justify-content: center;
+}
+.generator_conteiner{
+  
+  margin-bottom: 10px;
+}
+.input_your_hash{
+  
+
 }
 input{
   width: 200px;
@@ -179,4 +204,10 @@ input{
 
   color: snow;
   border-radius: 10px;
+}
+.nitifi{
+  width: 100px;
+  height: 100px;
+  background-color: greenyellow;
+  z-index: 100;
 }

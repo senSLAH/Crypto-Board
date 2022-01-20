@@ -5,35 +5,41 @@ const HashcatOptions = (data) => {
 
     const [generatorVisibility, setGeneratorVisibility] = useState(false)
 
-    function showGenerator(choice){
-        if(generatorVisibility){
+    function showGenerator(choice) {
+        
+        const blocks_Attacks = document.querySelectorAll(".type_of_Attacks");
+        blocks_Attacks.forEach(b_data => { 
+                b_data.classList.add("none");
+        })
+        if (generatorVisibility) {
             setGeneratorVisibility(false);
             localStorage.setItem("option", null)
-        }else{
+        } else {
             setGeneratorVisibility(true);
             localStorage.setItem("option", choice)
-
         }
     }
 
-
     return (
         <>
-            <div>Choose option:</div>
-            <form>
-                <label>
-                    <input type="text" name="name" />
-                </label>
-                <input type="submit" value="Open" />
-            </form>
+            <div className="type_of_Attacks">
+                <div>Choose option:</div>
+                <form>
+                    <label>
+                        <input type="text" name="name" />
+                    </label>
+                    <input type="submit" value="Open" />
+                </form>
                 <a>hashcat</a>
 
-            <ul className="listOfOptions">
-                <li onClick={() => showGenerator("md5")}>MD5</li>
-                <li onClick={() => showGenerator("wpa/wpa2")}>WPA/WPA2</li>
-            </ul>
+                <ul className="listOfOptions">
+                    <li onClick={() => showGenerator("MD5")}>MD5</li>
+                    <li onClick={() => showGenerator("wpa/wpa2")}>WPA/WPA2</li>
+                </ul>
+            </div>
 
-            <CommandGenerator show={generatorVisibility}/>
+
+            <CommandGenerator show={generatorVisibility} />
         </>
     );
 }

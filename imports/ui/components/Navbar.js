@@ -7,7 +7,7 @@ const Navbar = () => {
     return (
         <div className="navbar">
             <button onClick={setDefault} className="home_button">Crypto Board</button>
-            <button className="navbar_button">Menu</button>
+            <button className="navbar_button">Help</button>
         </div>
     )
 }
