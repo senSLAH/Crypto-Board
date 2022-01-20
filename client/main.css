@@ -197,7 +197,7 @@ code {
 
 }
 input{
-  width: 200px;
+  width: 250px;
   height: 40px;
   background-color: transparent;
   border: 1px solid grey;
@@ -210,4 +210,9 @@ input{
   height: 100px;
   background-color: greenyellow;
   z-index: 100;
+}
+.cracke_results{
+  margin-top: 10px;
+  background-color: rgba(0, 128, 0, 0.863);
+  border-radius: 20px;
 }

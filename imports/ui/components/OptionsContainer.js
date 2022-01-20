@@ -13,7 +13,7 @@ class OptionsBox extends Component {
                 <Hashcat className="options_block">
                     <div>Hashcat</div>
                 </Hashcat>
-                <JohnTheRipper className="options_block">JohnTheRipper</JohnTheRipper>
+                {/* <JohnTheRipper className="options_block">JohnTheRipper</JohnTheRipper> */}
             </div>
         );
     }

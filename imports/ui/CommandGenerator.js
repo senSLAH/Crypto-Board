@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { Circles } from 'react-loader-spinner'
 
 
 const defaultState = {
@@ -17,11 +19,13 @@ const CommandGenerator = (props) => {
     const [decrypted, setDecrypted] = useState(null);
     const [width, setWidth] = useState(100);
     const [passLength, setPassLength] = useState(1);
-    
+
     const [passContent, setPassContent] = useState([]);
 
     let command;
     let pass_content = [];
+
+    let spiner = <div></div>
 
     createNotification = (type) => {
 
@@ -54,9 +58,9 @@ const CommandGenerator = (props) => {
         command = "./hashcat";
         if (isDictionary && isBruteForce) {
             command += " -a 0"////////////
-        }else if(isDictionary){
+        } else if (isDictionary) {
             command += " -a 0"
-        }else if(isBruteForce){
+        } else if (isBruteForce) {
             command += " -a 3"
         }
         if (localStorage.getItem("option") == "MD5") {//MD5 in Future
@@ -64,7 +68,7 @@ const CommandGenerator = (props) => {
         }
         command += " " + document.querySelector(".secure").value;
 
-        if(isBruteForce){
+        if (isBruteForce) {
             let selectors = document.querySelectorAll(".pass_selectors")
             command += " "
             for (let i = 0; i < selectors.length; i++) {
@@ -73,7 +77,7 @@ const CommandGenerator = (props) => {
             }
         }
         if (isDictionary) {
-            command += " example.dict"
+            command += " rockyou.txt"
         }
         setCommand(command)
         setWidth(((command.length + 1) * 8) + 'px')
@@ -84,19 +88,26 @@ const CommandGenerator = (props) => {
         createNotification('info')
         let full_command = "cd /Users/illiaaldabaiev/hashcat && " + Command;
         let secure = document.querySelector(".secure").value
-        Meteor.call('runCode', [full_command,secure], function (err, response) {
+        Meteor.call('runCode', [full_command, secure], function (err, response) {
             let status = response.match(/Status...........:.[A-Z][a-z]{0,}/g);
             let result = new RegExp("^.*" + secure + ".*$", 'm');
 
-            
-            console.log(response)
-            
 
-            setStatus(status[0].split(' ')[1])
-            setDecrypted(response.match(result)[0].split(':')[1])
+
+            if (status != null) {
+                setStatus(status[0].split(' ')[1]);
+                setDecrypted(response.match(result)[0].split(':')[1]);
+            } else {
+                setStatus("Cracked");
+                setDecrypted(response);
+            }
+
+
+
             // console.log(status);
             // console.log(response.match(result));
         });
+        spiner = <div></div>;
     }
 
     function copy_to_clickboard() {
@@ -127,6 +138,10 @@ const CommandGenerator = (props) => {
         }
         setPassContent(pass_content)
         console.log(pass_content);
+    }
+
+    function call_notification() {
+        createNotification('info')
     }
 
     return (
@@ -174,12 +189,13 @@ const CommandGenerator = (props) => {
                 </div>
             </div>
             <button onClick={() => copy_to_clickboard()}>Copy command</button>
-            <button onClick={() => execute_on_server()}>Execute</button>
-            <div className={status && decrypted ? null : "none"}>
+            <button onClick={() => {execute_on_server()}}>Execute</button>
+
+
+            <div className={status && decrypted ? "cracke_results" : "none"}>
                 Status: {status} <br />
                 Decrypted: {decrypted}
             </div>
-            
         </div>
     );
 }
