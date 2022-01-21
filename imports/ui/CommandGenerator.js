@@ -63,9 +63,8 @@ const CommandGenerator = (props) => {
         } else if (isBruteForce) {
             command += " -a 3"
         }
-        if (localStorage.getItem("option") == "MD5") {//MD5 in Future
-            command += " -m 0"
-        }
+        command += " -m " + localStorage.getItem("option").split(',')[1]
+
         command += " " + document.querySelector(".secure").value;
 
         if (isBruteForce) {
@@ -80,7 +79,7 @@ const CommandGenerator = (props) => {
             command += " rockyou.txt"
         }
         setCommand(command)
-        setWidth(((command.length + 1) * 8) + 'px')
+        setWidth(((command.length + 1) * 15) + 'px')
         this.createNotification('info')
     }
 
@@ -88,10 +87,10 @@ const CommandGenerator = (props) => {
         createNotification('info')
         let full_command = "cd /Users/illiaaldabaiev/hashcat && " + Command;
         let secure = document.querySelector(".secure").value
+        NotificationManager.info('Sending request...')
         Meteor.call('runCode', [full_command, secure], function (err, response) {
             let status = response.match(/Status...........:.[A-Z][a-z]{0,}/g);
             let result = new RegExp("^.*" + secure + ".*$", 'm');
-
 
 
             if (status != null) {
@@ -101,8 +100,7 @@ const CommandGenerator = (props) => {
                 setStatus("Cracked");
                 setDecrypted(response);
             }
-
-
+            NotificationManager.success('Successfully Cracked!')
 
             // console.log(status);
             // console.log(response.match(result));
@@ -140,28 +138,24 @@ const CommandGenerator = (props) => {
         console.log(pass_content);
     }
 
-    function call_notification() {
-        createNotification('info')
-    }
-
     return (
         <div className={props.show ? "commandGenerator" : "none"}>
             <NotificationContainer />
             <div className="generator_skeleton">
                 <div className='generator_tag'>
-                    Set properties for cracking {localStorage.getItem("option")}
+                    Set properties for cracking {localStorage.getItem("option").split(',')[0]}
                 </div>
                 <div className='generator'>
                     Choose type of attack:
                     <div>
                         <button className={isBruteForce ? "generator_button_selected" : "generator_button"}
                             onClick={() => {
-                                if (isBruteForce) { setIsBruteForce(false) } else { setIsBruteForce(true) }
+                                if (isBruteForce) { setIsBruteForce(false) } else { setIsBruteForce(true); setIsDictionary(false) }
                             }}>
                             Brute Force
                         </button>
                         <button className={isDictionary ? "generator_button_selected" : "generator_button"}
-                            onClick={() => { if (isDictionary) { setIsDictionary(false) } else { setIsDictionary(true) } }}>
+                            onClick={() => { if (isDictionary) { setIsDictionary(false) } else { setIsDictionary(true); setIsBruteForce(false) } }}>
                             Dictionary Attack
                         </button>
                     </div>
@@ -182,15 +176,14 @@ const CommandGenerator = (props) => {
                     </form>
                 </div>
                 <div>
-                    <button onClick={() => generate_command()}>Generate</button><br />
+                    <button className="generator_bttons" onClick={() => generate_command()}>Generate</button><br />
                     <div>
                         <input className='command_to_execute' style={{ width }} onChange={(event) => inputChangedHandler(event)} value={Command} type="text" name="name" />
                     </div>
                 </div>
             </div>
-            <button onClick={() => copy_to_clickboard()}>Copy command</button>
-            <button onClick={() => {execute_on_server()}}>Execute</button>
-
+            <button className="generator_bttons" onClick={() => copy_to_clickboard()}>Copy command</button>
+            <button className="generator_bttons" onClick={() => { execute_on_server() }}>Execute</button>
 
             <div className={status && decrypted ? "cracke_results" : "none"}>
                 Status: {status} <br />

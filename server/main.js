@@ -21,13 +21,18 @@ Meteor.startup(() => {
       this.unblock();
       var future=new Future();
       exec("cd /Users/illiaaldabaiev/hashcat && cat hashcat.potfile",function(error,stdout,stderr){
+          let search_error = new RegExp("^.*" + "No hashes loaded." + ".*$", 'm');
           let result = new RegExp("^.*" + command[1] + ".*$", 'm');
-          if(stdout.match(result)){
-            future.return(stdout.match(result)[0].split(':')[1]);
-          }else{
-            exec(command[0],function(error,stdout,stderr){
-              future.return(stdout.toString());
-            });
+          // if(stdout.match(search_error) == null){
+          //   future.return("400")
+          // }else{
+            if(stdout.match(result)){
+              future.return(stdout.match(result)[0].split(':')[1]);
+            }else{
+              exec(command[0],function(error,stdout,stderr){
+                future.return(stdout.toString());
+              });
+          // }
           }
       });
       return future.wait();
