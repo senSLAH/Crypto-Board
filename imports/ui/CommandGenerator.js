@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import { Circles } from 'react-loader-spinner'
+
+
 
 
 const defaultState = {
@@ -25,7 +25,6 @@ const CommandGenerator = (props) => {
     let command;
     let pass_content = [];
 
-    let spiner = <div></div>
 
     createNotification = (type) => {
 
@@ -49,16 +48,9 @@ const CommandGenerator = (props) => {
         };
     }
 
-    const print_state = () => {
-        console.log("Brute Force: " + isBruteForce);
-        console.log("Dictionary: " + isDictionary);
-    }
-
     const generate_command = () => {
         command = "./hashcat";
-        if (isDictionary && isBruteForce) {
-            command += " -a 0"////////////
-        } else if (isDictionary) {
+        if (isDictionary) {
             command += " -a 0"
         } else if (isBruteForce) {
             command += " -a 3"
@@ -71,7 +63,6 @@ const CommandGenerator = (props) => {
             let selectors = document.querySelectorAll(".pass_selectors")
             command += " "
             for (let i = 0; i < selectors.length; i++) {
-                console.log(selectors[i].value)
                 command += selectors[i].value
             }
         }
@@ -79,12 +70,20 @@ const CommandGenerator = (props) => {
             command += " rockyou.txt"
         }
         setCommand(command)
-        setWidth(((command.length + 1) * 15) + 'px')
-        this.createNotification('info')
+        setWidth(((command.length + 1) * 10) + 'px')
+        
     }
 
     const execute_on_server = () => {
-        createNotification('info')
+        let copyText = document.querySelector(".command_to_execute");
+        if(copyText.value == ""){
+            NotificationManager.warning('Set properties and click Generate button','Warning',4000);
+            return;
+        }
+        if(document.querySelector((".secure")).value == ""){
+            NotificationManager.warning('You forgot to enter hash!','Warning',4000);
+            return;
+        }
         let full_command = "cd /Users/illiaaldabaiev/hashcat && " + Command;
         let secure = document.querySelector(".secure").value
         NotificationManager.info('Sending request...')
@@ -92,25 +91,33 @@ const CommandGenerator = (props) => {
             let status = response.match(/Status...........:.[A-Z][a-z]{0,}/g);
             let result = new RegExp("^.*" + secure + ".*$", 'm');
 
-
-            if (status != null) {
+            if(status != null && status[0].split(' ')[1] == "Exhausted"){
+                NotificationManager.error('Error', 'Click here to see probable reason', 5000, () => {
+                    alert('Sometimes you can get error, because of: \n* Mismatched algoritm \n* Mismatched properties or misspelled hash \n* Server crash');
+                });
+            }else if (status != null) {
                 setStatus(status[0].split(' ')[1]);
                 setDecrypted(response.match(result)[0].split(':')[1]);
-            } else {
+                NotificationManager.success('Successfully Cracked!')
+            }else if(response.length > 20){
+                NotificationManager.error('Error', 'Click here to see probable reason', 5000, () => {
+                    alert('Sometimes you can get error, because of: \n* Mismatched algoritm \n* Mismatched properties or misspelled hash \n* Server crash');
+                });
+            }else {
                 setStatus("Cracked");
                 setDecrypted(response);
+                NotificationManager.success('Successfully Cracked!')
             }
-            NotificationManager.success('Successfully Cracked!')
-
-            // console.log(status);
-            // console.log(response.match(result));
         });
-        spiner = <div></div>;
     }
 
     function copy_to_clickboard() {
-        var copyText = document.querySelector(".command_to_execute");
-
+        let copyText = document.querySelector(".command_to_execute");
+        console.log(document.querySelector((".secure")).value)
+        if(copyText.value == ""){
+            NotificationManager.warning('Set properties and click Generate button','Warning',4000);
+            return;
+        }
         copyText.select();
         copyText.setSelectionRange(0, 99999);
         navigator.clipboard.writeText(copyText.value);
@@ -135,7 +142,6 @@ const CommandGenerator = (props) => {
             </select>)
         }
         setPassContent(pass_content)
-        console.log(pass_content);
     }
 
     return (
@@ -178,12 +184,12 @@ const CommandGenerator = (props) => {
                 <div>
                     <button className="generator_bttons" onClick={() => generate_command()}>Generate</button><br />
                     <div>
-                        <input className='command_to_execute' style={{ width }} onChange={(event) => inputChangedHandler(event)} value={Command} type="text" name="name" />
+                        <input className='command_to_execute' style={{ width }} onChange={(event) => inputChangedHandler(event)} readOnly value={Command} type="text" name="name" />
                     </div>
                 </div>
             </div>
-            <button className="generator_bttons" onClick={() => copy_to_clickboard()}>Copy command</button>
-            <button className="generator_bttons" onClick={() => { execute_on_server() }}>Execute</button>
+            <button className="generator_bttons"  onClick={() => copy_to_clickboard()}>Copy command</button>
+            <button className="generator_bttons"  onClick={() => { execute_on_server() }}>Execute</button>
 
             <div className={status && decrypted ? "cracke_results" : "none"}>
                 Status: {status} <br />

@@ -128,7 +128,7 @@ li{
   justify-content: center;
 }
 .options_block{
-  width: calc(600px + 2vmin);
+  width: calc(1000px + 2vmin);
   height: calc(500px + 2vmin);
   
   display: flex;
@@ -252,4 +252,7 @@ input{
   margin-top: 10px;
   background-color: rgba(0, 128, 0, 0.863);
   border-radius: 20px;
+}
+.command_to_execute{
+  text-align: center;
 }
