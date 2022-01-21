@@ -5,7 +5,7 @@ const HashcatOptions = (data) => {
 
     const [generatorVisibility, setGeneratorVisibility] = useState(false)
 
-    let listOfOptions = ["MD4,900","MD5,0","SHA1,100","SHA2-224,1300","SHA2-256,1400","SHA2-384,10800","SHA2-512,1700","SHA3-224,17300","SHA3-256,17400","SHA3-384,17500","SHA3-512,17600"] 
+    let listOfOptions = ["MD4,900","MD5,0","SHA1,100","SHA2-224,1300","SHA2-256,1400","SHA2-384,10800","SHA2-512,1700","SHA3-224,17300","SHA3-256,17400","SHA3-384,17500","SHA3-512,17600","RIPEMD-160,6000","BLAKE2b-512,600","GOST R 34.11-2012 (Streebog) 256-bit,11700","GOST R 34.11-2012 (Streebog) 512-bit,11800","GOST R 34.11-94,6900","Half MD5,5100","Whirlpool,6100"] 
     let html_listOfOptions = []; 
 
     listOfOptions.forEach(element => {
@@ -43,12 +43,6 @@ const HashcatOptions = (data) => {
             }else{
                 element.classList.add('none')
             }
-            // console.log(element.innerHTML)
-            // if(option.match(regex)){
-            //     console.log(option);
-            //     let option_code = element.split(',')[1]
-            //     html_listOfOptions.push(<li key={option+option_code} onClick={() => showGenerator(option, option_code)}>{option}</li>)
-            // }
         });
     }
 
