@@ -3,15 +3,12 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 
 
-
-
 const defaultState = {
     dictionary: false,
     bruteForce: false,
 };
 
 const CommandGenerator = (props) => {
-
     const [isBruteForce, setIsBruteForce] = useState(false);
     const [isDictionary, setIsDictionary] = useState(false);
     const [Command, setCommand] = useState("");
@@ -19,15 +16,11 @@ const CommandGenerator = (props) => {
     const [decrypted, setDecrypted] = useState(null);
     const [width, setWidth] = useState(100);
     const [passLength, setPassLength] = useState(1);
-
     const [passContent, setPassContent] = useState([]);
-
     let command;
     let pass_content = [];
 
-
     createNotification = (type) => {
-
         return () => {
             switch (type) {
                 case 'info':
@@ -55,8 +48,7 @@ const CommandGenerator = (props) => {
         } else if (isBruteForce) {
             command += " -a 3"
         }
-        command += " -m " + localStorage.getItem("option").split(',')[1]
-
+        command += " -m " + localStorage.getItem("option").split(',')[1];
         command += " " + document.querySelector(".secure").value;
 
         if (isBruteForce) {
@@ -71,7 +63,6 @@ const CommandGenerator = (props) => {
         }
         setCommand(command)
         setWidth(((command.length + 1) * 10) + 'px')
-        
     }
 
     const execute_on_server = () => {
@@ -92,7 +83,7 @@ const CommandGenerator = (props) => {
             let result = new RegExp("^.*" + secure + ".*$", 'm');
 
             if(status != null && status[0].split(' ')[1] == "Exhausted"){
-                NotificationManager.error('Error', 'Click here to see probable reason', 5000, () => {
+                NotificationManager.error('Click here to see probable reason', 'Error', 5000, () => {
                     alert('Sometimes you can get error, because of: \n* Mismatched algoritm \n* Mismatched properties or misspelled hash \n* Server crash');
                 });
             }else if (status != null) {
@@ -100,7 +91,7 @@ const CommandGenerator = (props) => {
                 setDecrypted(response.match(result)[0].split(':')[1]);
                 NotificationManager.success('Successfully Cracked!')
             }else if(response.length > 20){
-                NotificationManager.error('Error', 'Click here to see probable reason', 5000, () => {
+                NotificationManager.error('Click here to see probable reason', 'Error', 5000, () => {
                     alert('Sometimes you can get error, because of: \n* Mismatched algoritm \n* Mismatched properties or misspelled hash \n* Server crash');
                 });
             }else {

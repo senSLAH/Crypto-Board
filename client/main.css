@@ -79,8 +79,22 @@ code {
 }
 .helpPage{
   position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background-color: rgb(13,17,23);
+  color: snow;
+  text-align: center !important;
+}
+.helpPageContent{
+  position: absolute;
+  text-align: left;
+  margin-top: 40px;
+  margin-left: 20px;
   width: 100%;
-  height: 100%;
+  height: 1000px;
   background-color: rgb(13,17,23);
   color: snow;
 }

@@ -14,7 +14,6 @@ const HashcatOptions = (data) => {
         html_listOfOptions.push(<li key={option+option_code} onClick={() => showGenerator(option, option_code)} value={option}>{option}</li>)
     });
 
-
     function showGenerator(choice,choice_kod) {
         
         const blocks_Attacks = document.querySelectorAll(".type_of_Attacks");
@@ -59,7 +58,6 @@ const HashcatOptions = (data) => {
                     {html_listOfOptions}
                 </ul>
             </div>
-
 
             <CommandGenerator show={generatorVisibility} />
         </>

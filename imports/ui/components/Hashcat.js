@@ -2,12 +2,9 @@ import React from 'react'
 import HashcatOptions from './HashcatOptions';
 
 const Hashcat = (data) => {
-
     let content = data.children;
 
     function openOption(option){
-
-        
         const blocks_content = document.querySelectorAll(".none");
         const blocks_options = document.querySelectorAll(".options_block");
         blocks_content.forEach(b_data => {
