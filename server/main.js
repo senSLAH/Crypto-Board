@@ -15,24 +15,18 @@ Meteor.startup(() => {
    // Server methods
    Meteor.methods({
     runCode: function (command) {
-      // This method call won't return immediately, it will wait for the
-      // asynchronous code to finish, so we call unblock to allow this client
-      // to queue other method calls (see Meteor docs)
       this.unblock();
       var future=new Future();
-      exec("cd /Users/illiaaldabaiev/hashcat && cat hashcat.potfile",function(error,stdout,stderr){
+      
+      exec("cd PATH/TO/HASHCAT && cat hashcat.potfile",function(error,stdout,stderr){//if you have hashcat change set PATH to your hashcat directory and path to your hashcat.potfile file on windows may be called differently
           let search_error = new RegExp("^.*" + "No hashes loaded." + ".*$", 'm');
           let result = new RegExp("^.*" + command[1] + ".*$", 'm');
-          // if(stdout.match(search_error) == null){
-          //   future.return("400")
-          // }else{
             if(stdout.match(result)){
               future.return(stdout.match(result)[0].split(':')[1]);
             }else{
               exec(command[0],function(error,stdout,stderr){
                 future.return(stdout.toString());
               });
-          // }
           }
       });
       return future.wait();
